@@ -1,0 +1,26 @@
+[
+  {
+    "id": "a-001",
+    "title": "City launches mixed-income housing on public land near transit hub",
+    "publisher": "NYTimes",
+    "published_at": "2024-07-05",
+    "url": "https://example.com/a-001",
+    "content": "This article discusses a public-private partnership leveraging city-owned land to deliver mixed-income apartments adjacent to a transit hub. The plan blends LIHTC financing with green building standards and a culture-led placemaking strategy."
+  },
+  {
+    "id": "a-002",
+    "title": "Retrofitting districts to net-zero through heat networks",
+    "publisher": "Bloomberg CityLab",
+    "published_at": "2024-07-06",
+    "url": "https://example.com/a-002",
+    "content": "A case study on district-scale retrofits and heat pump networks. The initiative examines governance models, private concessions, and equitable tariffs for low-income households."
+  },
+  {
+    "id": "a-003",
+    "title": "Warehouse-to-arts hub conversion sparks local renaissance",
+    "publisher": "The Real Deal",
+    "published_at": "2024-07-08",
+    "url": "https://example.com/a-003",
+    "content": "Developers and a municipal arts council co-create a culture-led redevelopment, turning vacant warehouses into studios, public spaces, and affordable live-work units."
+  }
+]

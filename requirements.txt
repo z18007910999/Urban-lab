@@ -1,0 +1,8 @@
+streamlit==1.40.1
+supabase==2.6.0          # ← 关键：包名就是 supabase，不是 supabase-py 也不是 supabase_py
+pandas==2.2.3
+requests==2.32.3
+Pillow==11.0.0
+python-docx==1.1.2
+# 如果你本地还用 .env，可加（云端不必）：
+# python-dotenv==1.0.1

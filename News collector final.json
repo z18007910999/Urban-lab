@@ -1,0 +1,1043 @@
+{
+  "name": "News collector",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        -112
+      ],
+      "id": "00e2e7cd-25c8-41ba-9b6a-a68c62abca35",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "khrGpeamuiVGcrat",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://rss.nytimes.com/services/xml/rss/nyt/RealEstate.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -320
+      ],
+      "id": "ae153aac-bdf5-4905-9f98-6ffd5526af55",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "url": "https://therealdeal.com/new-york/feed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        16
+      ],
+      "id": "f4b92e62-8f6c-4a1e-a1be-099b83212504",
+      "name": "RSS Read1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "09da3291-83da-4f1c-86e7-04702d9bbdaa",
+              "name": "creator",
+              "value": "={{ $json.creator }}",
+              "type": "string"
+            },
+            {
+              "id": "a085f5bc-336e-42ba-9882-d337ddde217d",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "4de44540-4dfc-4a60-aca2-2ff84b807328",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "780bdbd0-7a39-4e03-9c7f-b415d3427b34",
+              "name": "pubDate",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        528,
+        -320
+      ],
+      "id": "f8716f20-0df6-4c6a-95d9-985fb8126092",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "https://www.curbed.com/rss/index.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        304
+      ],
+      "id": "98a7a413-78da-432b-87c8-b7c346f36c6d",
+      "name": "RSS Read2"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.link }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "accept-language",
+              "value": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+            },
+            {
+              "name": "cache-control",
+              "value": "max-age=0"
+            },
+            {
+              "name": "priority",
+              "value": "u=0, i"
+            },
+            {
+              "name": "sec-ch-device-memory",
+              "value": "8"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Microsoft Edge\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\""
+            },
+            {
+              "name": "sec-ch-ua-arch",
+              "value": "\"x86\""
+            },
+            {
+              "name": "sec-ch-ua-full-version-list",
+              "value": "\"Microsoft Edge\";v=\"141.0.3537.85\", \"Not?A_Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"141.0.7390.108\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-model",
+              "value": "\"\""
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Windows\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "document"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "navigate"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "none"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+            },
+            {
+              "name": "cookie",
+              "value": "nyt-a=M2gTYvTVkXBeDCdZLbKDKf;nyt-purr=cfshcfhshckfhdfshgas2taaa;gpp-string=\",,DBABLA~BVQqAAAAAABo.QA\";_cb=dVeVtGZlZ7fqPjN;_gcl_au=1.1.1395964664.1756761624;_v__chartbeat3=DOrKNRCTPIxXDs_CG5;_dd_s=aid=6531e21a-c4f5-4f43-8fb4-3064963cc0c9&rum=0&expire=1757992992766&lock=e9a80ea5-74d3-42b8-83d4-9f05210c6266;g_state={\"i_l\":0};_scid=vyJ-pbAKWIkSFIUbiFZDE-Y3OiZG7gLD;_fbp=fb.1.1758951008229.723997055352120648;iter_id=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiI2OGI2MGUxOGQ3MmJhZTZlOTNjZGZkODgiLCJhaWRfZXh0Ijp0cnVlLCJjb21wYW55X2lkIjoiNWMwOThiM2QxNjU0YzEwMDAxMmM2OGY5IiwiaWF0IjoxNzU4OTUxMDA5fQ.LuNv2pBcj3yHLltRW2MNoQSLMBLT4KkeIpzCHlcUw5s;_sctr=1%7C1758945600000;_scid_r=yKJ-pbAKWIkSFIUbiFZDE-Y3OiZG7gLDQ05QUg;_ga=GA1.2.1362467833.1758959639;purr-cache=<G_<C_<T0<Td_<Tp1_<Tp2_<Tp3_<Tp4_<Tp7_<a0_<K0<S0<r<ur;purr-pref-agent=<G_<C_<T0<Td_<Tp1_<Tp2_<Tp3_<Tp4_<Tp7_<a0_;__gads=ID=97829e1cbe60cb00:T=1756761620:RT=1762522046:S=ALNI_MZQr3veU3Le_1NNV_hd5zwVx75aEw;__gpi=UID=000012783249e9d1:T=1756761620:RT=1762522046:S=ALNI_MZGnviQOxj89hRK3JhshhP0UUPCQg;__eoi=ID=9ef5151ecf108b51:T=1756761620:RT=1762522046:S=AA-AfjZqXi2umvi6ci2XdsaT6UJ-;RT=\"z=1&dm=nytimes.com&si=dde96e80-4ae5-4680-8870-c80aa166721b&ss=mhow0p82&sl=2&tt=9ch&bcn=%2F%2F68794911.akstat.io%2F&ld=9ozb&ul=9zvo&hd=a01l\";nyt-gdpr=0;nyt-us=1;nyt-geo=US;nyt-b-sid=4kem-iLdLahq9TknEF6tKTfd;NYT-S=0^CB0SMgje7N3GBhC0ms_IBhoSMS3Q2LbPf32Jnre67qmJ8x_XIN2w3IsBKgIeQTjuiN7GBkIAGkDDqkIdeiUUGPpcD7fzOEycnx9zXQyTESf0CvUf1PEvXgPJu_FWt8lOT8hBpy6TWKR75LuKU3PpWc9MWR3SXS8E;_lr_env_src_ats=true;_lr_geo_location_state=NY;_lr_geo_location=US;regi_cookie=news_tenure=45&regi_id=293017693;nyt-traceid=00000000000000005bee6d672cacb462;fides_consent=%7B%22consent%22%3A%7B%22targeted_advertising_gpp_us_national%22%3Atrue%7D%2C%22identity%22%3A%7B%22fides_user_device_id%22%3A%22fcc40578-30e0-4f16-a2a4-266fee5f9df8%22%7D%2C%22fides_meta%22%3A%7B%22version%22%3A%220.9.0%22%2C%22createdAt%22%3A%222025-09-01T21%3A20%3A23.394Z%22%2C%22updatedAt%22%3A%222025-11-11T23%3A55%3A04.462Z%22%2C%22consentMethod%22%3A%22script%22%7D%2C%22tcf_consent%22%3A%7B%7D%2C%22fides_string%22%3A%22%2C%2CDBABLA~BVQqAAAAAABo.QA%22%2C%22non_applicable_notice_keys%22%3A%5B%5D%7D;nyt-jkidd=uid=293017693&lastRequest=1762905304847&activeDays=%5B0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C1%2C1%2C0%2C0%2C0%2C1%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C1%2C1%2C1%2C0%2C0%2C0%2C1%5D&adv=7&a7dv=4&a14dv=4&a21dv=7&lastKnownType=sub&newsStartDate=1758944948&entitlements=AAA+AUD+MM+MOW+MSD+MTD;cto_bundle=WpoHHl96dHpkWVVnRzglMkIlMkJVVXJ3Z2VaY2E3SFhqMDNHcGNhaFQ3dnpqRnBEVSUyRmpPWmlubE5vcmFVUUwlMkJUc1BkREYxN3R6eWhlNjIlMkZqSHJRY1lVNHI3QnpROXFFMnlYZlRlU1BRTGswVXlKVDFpbFMlMkZCbzBiNFBZJTJCZWd5am1LbVRXJTJGSlN3Rm9iZXg0bEZqYkdGMG5nT3kzRThRJTNEJTNE;cto_bidid=-4bWXl8zZTZid2hVaEk2biUyRmhqQVFIN3YwTHN1YmRBNjZxa0hIZllLZUVLbjg5eXo1RXJ5MCUyRnMzRTFhSXUwRlNCYnRSZFc4TTFUa2M1RFFlJTJCVWExJTJCalNLS1A5UUhDcWNCekhRTjFXVlZjOTB1bFhJJTNE;cto_dna_bundle=fZAM8196dHpkWVVnRzglMkIlMkJVVXJ3Z2VaY2E3QWVtcDdDMnNPYWZ1Y2dQZVh3NnZtYUMydmZoNk1PVkhGYWxZdlBHbG9XME9MMVg1ajFtYU4lMkZpZzFWbHQ5TDU1QSUzRCUzRA;_chartbeat2=.1756761623416.1762905307195.1000000010110001.D2da_LDRVLnpD0cyfreUYD0CGUjXz.1;_cb_svref=external;datadome=vDCwmA6HjXa7cqFMNHJJOVNO7RjrMB0VZwUzWiZk8iQbMRSwBlhFYDYnSXQaWru3c6rCvVYYRR4xN5LoPtncpDcdW274EOoezECKX8eMLNjm96cJaEjcOEro4hm495Uq;"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        -320
+      ],
+      "id": "718433d3-a29f-4289-9ebc-ab1963d10ef7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a senior news analyst. \nYour task is to summarize news articles in a clear, concise, and professional manner. \nOnly use the information explicitly provided in the article. \nDo not add interpretations, speculations, or external knowledge. \nThe summary should remain objective, factual, and under 120 words.\n\nSummarize the following news article in 120 words or fewer. \nFocus only on the key facts, events, stakeholders, and outcomes described in the text. \nDo not include any analysis or information beyond what is written.\n\nTitle: {{$json.title}}\nDate: {{ $('RSS Read').item.json.pubDate }}\nSource: {{ $('RSS Read').item.json.link }}\nContent: {{ $json.text }}\n\nOutput policy (very important):\n- Use ONLY the information explicitly present in the provided article text and metadata (title, date, source URL). Do not add outside knowledge or speculation.\n- Return STRICT JSON only, no prose, no markdown.\n- JSON schema:\n  {\n    \"title\": string,\n    \"date\": string,                 // keep the given date string as-is\n    \"source_url\": string,\n    \"published_at\": string,         // the reporting outlet (e.g., \"The New York Times\"); if not explicitly present, fall back to the hostname from source_url (e.g., \"nytimes.com\")\n    \"summary\": string,              // <= 120 words, objective and factual\n    \"category\": \"Net Zero Cities\" | \"Housing Affordability\" | \"Public/Private Development\" | \"Culture Led Development\"\n  }\n\nClassification guideline (pick ONE best fit):\n- \"Net Zero Cities\": decarbonization, climate neutrality, urban emissions, clean energy transitions tied to cities.\n- \"Housing Affordability\": prices, rents, mortgages, subsidies, low-income housing costs, affordability policies.\n- \"Public/Private Development\": PPPs, government–developer collaborations, land concessions, joint financing/build.\n- \"Culture Led Development\": museums, cultural districts, creative industries driving urban regeneration.\n\nPublisher extraction:\n- If the outlet name appears in the text/metadata, use that exact string.\n- Else derive `published_at` from the source_url hostname (strip scheme and 'www.').",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        -320
+      ],
+      "id": "c1186389-e88c-4e93-9951-65c07338bd9c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// 每个 item 都会执行一次\nconst html = String($json.data);\n\n// ---------- 工具 ----------\nfunction decodeEntities(s){\n  if (!s) return \"\";\n  s = s.replace(/&nbsp;/g, \" \")\n       .replace(/&amp;/g, \"&\")\n       .replace(/&lt;/g, \"<\")\n       .replace(/&gt;/g, \">\")\n       .replace(/&quot;/g, '\"')\n       .replace(/&#39;/g, \"'\");\n  s = s.replace(/&#(\\d+);/g, (_,n)=>String.fromCharCode(parseInt(n,10)));\n  s = s.replace(/&#x([0-9a-fA-F]+);/g, (_,h)=>String.fromCharCode(parseInt(h,16)));\n  return s;\n}\nfunction stripTags(s){ return s.replace(/<[^>]+>/g,\" \").replace(/\\s+/g,\" \").trim(); }\nfunction cleanPara(t){\n  t = decodeEntities(stripTags(t));\n  const drop = [/^supported by/i,/^advertisement/i,/sign up/i,/subscribe/i,/^photo:/i];\n  if (drop.some(rx => rx.test(t))) return \"\";\n  return t;\n}\n\n// ---------- 图片提取工具 ----------\nfunction safeJsonParse(s){ try { return JSON.parse(s); } catch { return null; } }\nfunction normalizeUrl(u){\n  if (!u) return null;\n  u = u.trim().replace(/^\"+|\"+$/g, '');\n  if (/^\\/\\//.test(u)) return 'https:' + u; // 协议相对 -> https\n  return u;\n}\nfunction findOgOrTwitter(h){\n  const og = h.match(/<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  if (og) return og[1];\n  const tw = h.match(/<meta[^>]+name=[\"']twitter:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  if (tw) return tw[1];\n  return null;\n}\nfunction takeFromJsonLd(h){\n  const blocks = [...h.matchAll(/<script[^>]+type=[\"']application\\/ld\\+json[\"'][^>]*>([\\s\\S]*?)<\\/script>/gi)];\n  for (const m of blocks) {\n    const obj = safeJsonParse(m[1]); if (!obj) continue;\n    const nodes = Array.isArray(obj) ? obj : [obj];\n    for (const node of nodes) {\n      if (!node || typeof node !== 'object') continue;\n      const img = node.image || node.thumbnailUrl;\n      if (typeof img === 'string') return img;\n      if (Array.isArray(img)) {\n        const cand = img.find(x => typeof x === 'string')\n          || img.find(x => x && typeof x === 'object' && (x.url || x['@id'] || x.contentUrl));\n        if (cand) return typeof cand === 'string' ? cand : (cand.url || cand['@id'] || cand.contentUrl);\n      }\n      if (img && typeof img === 'object') {\n        return img.url || img['@id'] || img.contentUrl || null;\n      }\n    }\n  }\n  return null;\n}\nfunction takeFromNYTPromotional(h){\n  const m = h.match(/https?:\\/\\/[^\"'\\s]+nyt\\.com[^\"'\\s]+?\\.(?:jpg|jpeg|png)(?:\\?[^\"' \\t\\r\\n]*)?/i);\n  return m ? m[0] : null;\n}\nfunction takeFromImgs(h){\n  const imgs = [...h.matchAll(/<img\\b[^>]*\\bsrc=[\"']([^\"']+)[\"'][^>]*>/gi)];\n  for (const m of imgs) {\n    const url = (m[1] || '').trim();\n    if (!url) continue;\n    if (/^data:/i.test(url)) continue;\n    if (/\\.svg(?:\\?|$)/i.test(url)) continue;\n    if (/1x1|pixel|tracking/i.test(url)) continue;\n    return url;\n  }\n  return null;\n}\n\n// ---------- 1) 先找 <section name=\"articleBody\">\nlet sectionHtml = \"\";\nif (html) {\n  const m1 = html.match(/<section[^>]*\\bname=[\"']articleBody[\"'][^>]*>([\\s\\S]*?)<\\/section>/i);\n  if (m1) sectionHtml = m1[1];\n  if (!sectionHtml) {\n    const m2 = html.match(/<article[^>]*\\bid=[\"']story[\"'][^>]*>([\\s\\S]*?)<\\/article>/i);\n    if (m2) sectionHtml = m2[1];\n  }\n}\n\n// ---------- 2) 提取 <p>\nlet paragraphs = [];\nif (sectionHtml) {\n  sectionHtml = sectionHtml\n    .replace(/<script[\\s\\S]*?<\\/script>/gi,\"\")\n    .replace(/<style[\\s\\S]*?<\\/style>/gi,\"\")\n    .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi,\"\")\n    .replace(/<figure[\\s\\S]*?<\\/figure>/gi,\"\");\n\n  const ps = [...sectionHtml.matchAll(/<p\\b[^>]*>([\\s\\S]*?)<\\/p>/gi)];\n  paragraphs = ps.map(m => cleanPara(m[1])).filter(Boolean);\n}\n\nlet article_text = paragraphs.join(\" \");\nif (!article_text && html) {\n  article_text = decodeEntities(stripTags(\n    html.replace(/<script[\\s\\S]*?<\\/script>/gi,\"\")\n        .replace(/<style[\\s\\S]*?<\\/style>/gi,\"\")\n        .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi,\"\")\n  ));\n}\n\n// 可选：限长\nif (article_text.length > 12000) {\n  article_text = article_text.slice(0, 12000);\n}\n\n// ---------- 3) 标题/源链接兜底 ----------\nlet title = $json.title || \"\";\nif (!title && html) {\n  const t1 = html.match(/<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  const t2 = html.match(/<title[^>]*>([^<]+)<\\/title>/i);\n  title = decodeEntities((t1 && t1[1]) || (t2 && t2[1]) || \"\");\n}\nlet source = $json.link || $json.url || \"\";\nif (html) {\n  const can = html.match(/<link[^>]+rel=[\"']canonical[\"'][^>]+href=[\"']([^\"']+)[\"']/i);\n  if (can) source = can[1];\n}\n\n// ---------- 4) 提取首图 ----------\nlet img = null;\nif (html) {\n  img = findOgOrTwitter(html)\n     || takeFromJsonLd(html)\n     || takeFromNYTPromotional(html)\n     || takeFromImgs(html);\n}\nconst image_url = normalizeUrl(img);\n\n// ---------- 结果 ----------\nreturn {\n  ...$json,\n  title,\n  source,\n  text: article_text,\n  image_url\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -320
+      ],
+      "id": "7d80cc5b-5e5e-4f96-9305-f0b1554d4ee9",
+      "name": "get the news text"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// ---------- 工具：去掉 ```json 围栏 ----------\nfunction stripFence(s) {\n  if (typeof s !== 'string') return '';\n  s = s.trim().replace(/^```json\\s*/i,'').replace(/^```\\s*/i,'')\n               .replace(/```$/i,'').trim();\n  return s;\n}\n\n// ---------- 发布商标准化：域名/别名 → 规范名称 ----------\nfunction normalizePublisher(pub, srcUrl) {\n  const val = (pub || '').trim();\n\n  // 尝试从 URL 提取域名（如果提供了 source_url）\n  let host = null;\n  if (srcUrl) {\n    try {\n      host = new URL(srcUrl).hostname.replace(/^www\\./i, '').toLowerCase();\n    } catch {}\n  }\n\n  // 统一小写用于匹配\n  const lower = val.toLowerCase();\n\n  // 可扩展映射表（按需添加更多媒体）\n  const map = {\n    'nytimes.com': 'The New York Times',\n    'the new york times': 'The New York Times',\n  };\n\n  // 1) 先看文本本身是否能映射\n  if (lower && map[lower]) return map[lower];\n\n  // 2) 再看 URL 的 host 是否能映射\n  if (host && map[host]) return map[host];\n\n  // 3) 若都不命中，原样返回（保持你现有逻辑）\n  return val || null;\n}\n\n// ---------- 1) 取 AI 输出并解析为对象 ----------\nlet rawOutput =\n  $('AI Agent').item.json.output ??\n  $('AI Agent').item.json.text ??\n  $json.output ??\n  $json.text ??\n  '';\n\nlet obj = {};\ntry { obj = JSON.parse(stripFence(rawOutput)); } catch (e) { obj = {}; }\n\n// ---------- 2) 读取 pubDate 并转 YYYY-MM-DD ----------\nconst rawDate = $('Edit Fields').item.json.pubDate ?? obj.date ?? null;\nlet dateOnly = null, originalDate = null;\n\nif (rawDate) {\n  originalDate = String(rawDate);\n  const d = new Date(originalDate);\n  if (!isNaN(d.getTime())) {\n    dateOnly = d.toISOString().slice(0, 10); // \"YYYY-MM-DD\"\n  }\n}\n\n// ---------- 3) 规范化发布商 ----------\nconst sourceUrl = obj.source_url ?? null;\nconst publishedAt = normalizePublisher(obj.published_at ?? null, sourceUrl);\n\n// ---------- 4) 组装最终返回 ----------\nreturn {\n  title:        obj.title ?? null,\n  date:         dateOnly ?? (obj.date ?? null),\n  source_url:   sourceUrl,\n  published_at: publishedAt,        // 已统一成规范名称（如 The New York Times）\n  summary:      obj.summary ?? null,\n  category:     obj.category ?? null,\n  original_date: originalDate ?? null\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1648,
+        -320
+      ],
+      "id": "68a6efd6-fb81-4b33-b2d4-10ebf25897b5",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "tableId": "News_storage",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldId": "creator",
+              "fieldValue": "={{ $('Edit Fields').item.json.creator }}"
+            },
+            {
+              "fieldId": "link",
+              "fieldValue": "={{ $json.source_url }}"
+            },
+            {
+              "fieldId": "pubdate",
+              "fieldValue": "={{ $json.date }}"
+            },
+            {
+              "fieldId": "summary",
+              "fieldValue": "={{ $json.summary }}"
+            },
+            {
+              "fieldId": "Publisher",
+              "fieldValue": "={{ $json.published_at }}"
+            },
+            {
+              "fieldId": "Category",
+              "fieldValue": "={{ $json.category }}"
+            },
+            {
+              "fieldId": "maintext",
+              "fieldValue": "={{ $('get the news text').item.json.text }}"
+            },
+            {
+              "fieldId": "image_url",
+              "fieldValue": "={{ $('get the news text').item.json.image_url }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1888,
+        -320
+      ],
+      "id": "7c78bcbf-94bd-4770-9d94-4f8002aa04d4",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1t9lpCOIGT0r6pqG",
+          "name": "Supabase account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        16
+      ],
+      "id": "c021481e-33d8-42d0-8fbc-b908c03fa3fd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "18bcc3bb-9a42-461b-9300-cfc89ae4a169",
+              "name": "creator",
+              "value": "={{ $json.creator }}",
+              "type": "string"
+            },
+            {
+              "id": "f89d37b7-bf59-42e2-a203-8622d1df2dbc",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "1c1532b5-e6dc-4f51-8636-f281e0114a5b",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "499ae06c-16fb-4286-91e8-1a94eede78b3",
+              "name": "pubDate",
+              "value": "={{ new Date(($json.pubDate || \"\").trim()).toISOString().slice(0,10)}}",
+              "type": "string"
+            },
+            {
+              "id": "f469c9fc-982e-4179-bffc-f53f05f6e487",
+              "name": "contentSnippet",
+              "value": "={{ $json.contentSnippet }}",
+              "type": "string"
+            },
+            {
+              "id": "0cdb3eef-7243-4fc3-adb2-3c6f0af17253",
+              "name": "source_name",
+              "value": "therealdeal.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        528,
+        16
+      ],
+      "id": "8ed3236d-68fe-4b64-abb3-d8aecb5c9dab",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "59c56acd-ba92-4d85-baba-c72cbbc1ddbe",
+              "leftValue": "={{\n  (() => {\n    const t = new Date($json.pubDate);\n    if (isNaN(t)) return false;\n    return (new Date() - t) <= 3 * 24 * 60 * 60 * 1000 && t <= new Date();\n  })()\n}}\n",
+              "rightValue": "=",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        -320
+      ],
+      "id": "242ce12f-869c-4e7f-bc1e-e3172c47a468",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ad32df89-89dd-487e-8b56-450e829b4289",
+              "leftValue": "={{\n  (() => {\n    const t = new Date($json.pubDate);\n    if (isNaN(t)) return false;\n\n    const now = new Date();\n    const threeDaysMs = 3 * 24 * 60 * 60 * 1000;\n\n    return (now - t) <= threeDaysMs && t <= now;\n  })()\n}}\n",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        16
+      ],
+      "id": "16203840-b57d-4f4c-8967-882ae3e3e142",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a senior urban policy analyst. \nYour task is to classify each news article into ONE of the following predefined categories. \nUse ONLY the information explicitly present in the provided title, date, source URL, and text. \nDo NOT infer or speculate beyond the content.\n\nCategories:\n- Net Zero Cities → decarbonization, climate neutrality, emissions reduction, renewable energy, or urban green transition.\n- Housing Affordability → home prices, rents, mortgages, housing costs, or affordability policies.\n- Public/Private Development → government–developer collaborations, land concessions, infrastructure projects, or joint financing/build efforts.\n- Culture Led Development → museums, cultural districts, creative industries, or arts-driven urban regeneration.\n\nInput:\nTitle: {{$json.title}}\nDate: {{ $json.pubDate }}\nSource: {{ $json.link }}\nContent: {{ $json.contentSnippet }}\n\nOutput rules:\n- Output ONLY the single best-fit category name.\n- Do NOT include explanations, punctuation, markdown, or JSON.\n- Possible outputs (exactly one of the following):\n  Net Zero Cities\n  Housing Affordability\n  Public/Private Development\n  Culture Led Development\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        32
+      ],
+      "id": "ee9c82a4-00f7-4674-a324-2d44b3ffff8d",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "tableId": "News_storage",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $('Edit Fields1').item.json.title }}"
+            },
+            {
+              "fieldId": "creator",
+              "fieldValue": "={{ $('Edit Fields1').item.json.creator }}"
+            },
+            {
+              "fieldId": "link",
+              "fieldValue": "={{ $('Edit Fields1').item.json.link }}"
+            },
+            {
+              "fieldId": "pubdate",
+              "fieldValue": "={{ $('Edit Fields1').item.json.pubDate }}"
+            },
+            {
+              "fieldId": "summary",
+              "fieldValue": "={{ $('Edit Fields1').item.json.contentSnippet }}"
+            },
+            {
+              "fieldId": "Publisher",
+              "fieldValue": "={{ $('Edit Fields1').item.json.source_name }}"
+            },
+            {
+              "fieldId": "Category",
+              "fieldValue": "={{ $json.output }}"
+            },
+            {
+              "fieldId": "maintext",
+              "fieldValue": "={{ $('Edit Fields1').item.json.contentSnippet }}"
+            },
+            {
+              "fieldId": "image_url",
+              "fieldValue": "={{ $('Code in JavaScript').item.json.image_url }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        32
+      ],
+      "id": "876b758e-fea4-4922-801a-1d00c638c307",
+      "name": "Create a row1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1t9lpCOIGT0r6pqG",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "65d38158-6553-443d-b70f-9803812800ac",
+              "leftValue": "={{\n  (() => {\n    const t = new Date($json.pubDate);\n    if (isNaN(t)) return false;\n\n    const now = new Date();\n    const threeDaysMs = 3 * 24 * 60 * 60 * 1000;\n\n    return (now - t) <= threeDaysMs && t <= now;\n  })()\n}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        304
+      ],
+      "id": "5c070652-da03-4523-b50d-21c4ae862df8",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1a2013f5-8406-4381-a3cc-f5367b02358d",
+              "name": "creator",
+              "value": "={{ $json.creator }}",
+              "type": "string"
+            },
+            {
+              "id": "f1555380-fda4-4a31-86cd-75cc8971df33",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "edc942c0-7fb8-4c63-8251-2e9cdef76e3d",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "3f3916b7-65e8-4e71-9534-171c811972ec",
+              "name": "pubDate",
+              "value": "={{ new Date(($json.pubDate || \"\").trim()).toISOString().slice(0,10)}}",
+              "type": "string"
+            },
+            {
+              "id": "6f879be0-0f96-4ab7-b61b-c34e9eb588d7",
+              "name": "content:encodedSnippet",
+              "value": "={{ $json['content:encodedSnippet'] }}",
+              "type": "string"
+            },
+            {
+              "id": "a665dab8-c20f-48a7-81fd-cd79d81183b3",
+              "name": "source_name",
+              "value": "curbed.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        528,
+        320
+      ],
+      "id": "f499c9c8-68a6-46ed-9de5-e324025c5410",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a senior urban policy analyst. \nYour task is to classify each news article into ONE of the following predefined categories. \nUse ONLY the information explicitly present in the provided title, date, source URL, and text. \nDo NOT infer or speculate beyond the content.\n\nCategories:\n- Net Zero Cities → decarbonization, climate neutrality, emissions reduction, renewable energy, or urban green transition.\n- Housing Affordability → home prices, rents, mortgages, housing costs, or affordability policies.\n- Public/Private Development → government–developer collaborations, land concessions, infrastructure projects, or joint financing/build efforts.\n- Culture Led Development → museums, cultural districts, creative industries, or arts-driven urban regeneration.\n\nInput:\nTitle: {{ $('Edit Fields2').item.json.title }}\nDate: {{ $('Edit Fields2').item.json.pubDate }}\nSource: {{ $('Edit Fields2').item.json.source_name }}\nContent: {{ $('Edit Fields2').item.json['content:encodedSnippet'] }}\n\nOutput rules:\n- Output ONLY the single best-fit category name.\n- Do NOT include explanations, punctuation, markdown, or JSON.\n- Possible outputs (exactly one of the following):\n  Net Zero Cities\n  Housing Affordability\n  Public/Private Development\n  Culture Led Development\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        320
+      ],
+      "id": "38051de8-37e0-497f-8d07-9301d53a8f2f",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        192
+      ],
+      "id": "5b670ce7-7951-401d-9505-afff75be1dc6",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "khrGpeamuiVGcrat",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        512
+      ],
+      "id": "2f81022b-0dbc-4f24-9afb-d53a2bde6517",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "khrGpeamuiVGcrat",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "News_storage",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $('Edit Fields2').item.json.title }}"
+            },
+            {
+              "fieldId": "creator",
+              "fieldValue": "={{ $('Edit Fields2').item.json.creator }}"
+            },
+            {
+              "fieldId": "link",
+              "fieldValue": "={{ $('Edit Fields2').item.json.link }}"
+            },
+            {
+              "fieldId": "pubdate",
+              "fieldValue": "={{ $('Edit Fields2').item.json.pubDate }}"
+            },
+            {
+              "fieldId": "summary",
+              "fieldValue": "={{ $('Edit Fields2').item.json['content:encodedSnippet'] }}"
+            },
+            {
+              "fieldId": "Publisher",
+              "fieldValue": "={{ $('Edit Fields2').item.json.source_name }}"
+            },
+            {
+              "fieldId": "Category",
+              "fieldValue": "={{ $json.output }}"
+            },
+            {
+              "fieldId": "maintext",
+              "fieldValue": "={{ $('Edit Fields2').item.json['content:encodedSnippet'] }}"
+            },
+            {
+              "fieldId": "image_url",
+              "fieldValue": "={{ $('Code in JavaScript2').item.json.image_url }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        320
+      ],
+      "id": "7db9b2b1-8291-4ca7-8f2e-cc6f390ce5cf",
+      "name": "Create a row2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1t9lpCOIGT0r6pqG",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        32
+      ],
+      "id": "57c830b6-058e-4918-9f21-ce8d3c09eb9c",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Run Once for Each Item\nconst html = String($json.data || \"\");\n\n// ---------- 工具函数 ----------\nfunction normalizeUrl(u) {\n  if (!u) return null;\n  u = u.trim().replace(/^\"+|\"+$/g, \"\");\n  if (/^\\/\\//.test(u)) return \"https:\" + u; // 协议相对\n  return u;\n}\nfunction upgradeWpThumb(u) {\n  // 去掉 WordPress 缩略后缀 -200x133.jpg → .jpg\n  return u ? u.replace(/-\\d+x\\d+(?=\\.(?:jpg|jpeg|png)(?:[\\?#]|$))/i, \"\") : u;\n}\nfunction isLogoOrSvg(u) {\n  return (\n    !u ||\n    /\\.svg(?:\\?|$)/i.test(u) ||\n    /\\/logos\\/trd-news-logo/i.test(u)\n  );\n}\n\n// ---------- 提取逻辑 ----------\nfunction findOgImage(h) {\n  const m = h.match(\n    /<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i\n  );\n  return m ? m[1] : null;\n}\nfunction findTwitterImage(h) {\n  const m = h.match(\n    /<meta[^>]+name=[\"']twitter:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i\n  );\n  return m ? m[1] : null;\n}\nfunction findArticleImg(h) {\n  // 优先正文区域 <section name=\"articleBody\"> 或 <article>\n  const scopeMatch =\n    h.match(\n      /<section[^>]*name=[\"']articleBody[\"'][^>]*>([\\s\\S]*?)<\\/section>/i\n    ) || h.match(/<article\\b[^>]*>([\\s\\S]*?)<\\/article>/i);\n  const scope = scopeMatch ? scopeMatch[1] : h;\n\n  // 去除无关区块\n  const cleaned = scope\n    .replace(/<script[\\s\\S]*?<\\/script>/gi, \"\")\n    .replace(/<style[\\s\\S]*?<\\/style>/gi, \"\")\n    .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi, \"\");\n\n  // 1) src\n  let m = cleaned.match(/<img\\b[^>]*\\bsrc=[\"']([^\"']+)[\"'][^>]*>/i);\n  if (m && m[1]) return m[1];\n\n  // 2) data-src\n  m = cleaned.match(/<img\\b[^>]*\\bdata-src=[\"']([^\"']+)[\"'][^>]*>/i);\n  if (m && m[1]) return m[1];\n\n  // 3) srcset (取第一张)\n  m = cleaned.match(/<img\\b[^>]*\\bsrcset=[\"']([^\"']+)[\"'][^>]*>/i);\n  if (m && m[1]) {\n    const first = m[1].split(\",\")[0].trim().split(\" \")[0];\n    if (first) return first;\n  }\n\n  return null;\n}\n\n// ---------- 选择主图 ----------\nlet url =\n  findOgImage(html) ||\n  findTwitterImage(html) ||\n  findArticleImg(html);\n\nurl = normalizeUrl(url);\nif (isLogoOrSvg(url)) {\n  // 如果误抓到 logo，则再尝试正文图\n  const alt = findArticleImg(html);\n  if (alt && !isLogoOrSvg(alt)) url = normalizeUrl(alt);\n}\nurl = upgradeWpThumb(url);\n\n// ---------- 返回单个对象 ----------\nreturn {\n  ...$json,\n  image_url: url || null\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        32
+      ],
+      "id": "c5f8abc5-7426-4af1-9bbb-4789b43e291e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        320
+      ],
+      "id": "6a8d899c-296f-4aee-bd74-bbb5fbba0a90",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// 仅提取文章图片（首图）。Run Once for Each Item\nconst html = String($json.data || \"\");\n\n// —— 工具 —— //\nfunction normalizeUrl(u){\n  if (!u) return null;\n  u = u.trim().replace(/^\"+|\"+$/g, \"\");\n  if (/^\\/\\//.test(u)) return \"https:\" + u; // 协议相对\n  return u;\n}\nfunction findOgOrTwitter(h){\n  // 先 og:image:secure_url，其次 og:image，再其次 twitter:image\n  const m1 = h.match(/<meta[^>]+property=[\"']og:image:secure_url[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  if (m1) return m1[1];\n  const m2 = h.match(/<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  if (m2) return m2[1];\n  const m3 = h.match(/<meta[^>]+name=[\"']twitter:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i);\n  if (m3) return m3[1];\n  return null;\n}\nfunction safeJsonParse(s){ try { return JSON.parse(s); } catch { return null; } }\nfunction takeFromJsonLd(h){\n  // Vox/Curbed 会在 ld+json 里给出 image/url 或数组\n  const blocks = [...h.matchAll(/<script[^>]+type=[\"']application\\/ld\\+json[\"'][^>]*>([\\s\\S]*?)<\\/script>/gi)];\n  for (const m of blocks) {\n    const obj = safeJsonParse(m[1]); if (!obj) continue;\n    const nodes = Array.isArray(obj) ? obj : [obj];\n    for (const node of nodes) {\n      if (!node || typeof node !== \"object\") continue;\n      const img = node.image || node.thumbnailUrl;\n      if (typeof img === \"string\") return img;\n      if (Array.isArray(img)) {\n        for (const x of img) {\n          if (typeof x === \"string\") return x;\n          if (x && typeof x === \"object\") {\n            if (x.url || x[\"@id\"] || x.contentUrl) return x.url || x[\"@id\"] || x.contentUrl;\n          }\n        }\n      }\n      if (img && typeof img === \"object\") {\n        if (img.url || img[\"@id\"] || img.contentUrl) return img.url || img[\"@id\"] || img.contentUrl;\n      }\n    }\n  }\n  return null;\n}\nfunction takeFromSrcset(h){\n  // 解析 <source srcset> 或 <img srcset>，取最大尺寸\n  const srcsets = [...h.matchAll(/\\bsrcset=[\"']([^\"']+)[\"']/gi)];\n  let best = null, bestW = -1;\n  for (const m of srcsets) {\n    const list = m[1].split(\",\").map(s => s.trim());\n    for (const it of list) {\n      const mm = it.match(/(\\S+)\\s+(\\d+)w/);\n      const url = (mm ? mm[1] : it.split(/\\s+/)[0]) || \"\";\n      const w = mm ? parseInt(mm[2], 10) : 0;\n      if (!/^data:/i.test(url) && !/\\.svg(?:\\?|$)/i.test(url) && w >= bestW) {\n        best = url; bestW = w;\n      }\n    }\n  }\n  return best;\n}\nfunction takeFromImgs(h){\n  const imgs = [...h.matchAll(/<img\\b[^>]*\\bsrc=[\"']([^\"']+)[\"'][^>]*>/gi)];\n  for (const m of imgs) {\n    const url = (m[1] || \"\").trim();\n    if (!url) continue;\n    if (/^data:/i.test(url)) continue;\n    if (/\\.svg(?:\\?|$)/i.test(url)) continue;\n    if (/1x1|pixel|tracking/i.test(url)) continue;\n    return url;\n  }\n  return null;\n}\n\n// —— 提取顺序：优先可靠的元数据，其次结构化数据，最后回退 —— //\nlet img =\n  findOgOrTwitter(html) ||\n  takeFromJsonLd(html)   ||\n  takeFromSrcset(html)   ||\n  takeFromImgs(html);\n\nconst image_url = normalizeUrl(img);\n\n// 仅返回单个对象（避免 “Code doesn't return a single object” 报错）\nreturn {\n  image_url\n  // 如果想把原字段透传，可加上 ...$json\n  // ...$json,\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        320
+      ],
+      "id": "409f615b-cb9d-41a2-80df-260d9a7771f2",
+      "name": "Code in JavaScript2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "get the news text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get the news text": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Create a row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Create a row2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bfabd556-ea13-460c-b633-f5378508f983",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c5985bb4b4296997ec7f418f882ca2b78f7125083d7059bbe50e10dc9b183801"
+  },
+  "id": "he8xLM0wHL59guU0",
+  "tags": []
+}
